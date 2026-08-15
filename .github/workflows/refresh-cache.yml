@@ -1,0 +1,19 @@
+name: Refresh Job Cache
+
+on:
+  schedule:
+    # Runs every 6 hours
+    - cron: '0 */6 * * *'
+  workflow_dispatch: # Allows manual trigger
+
+jobs:
+  refresh-cache:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Refresh Cache Endpoint
+        run: |
+          curl -X POST https://your-backend-url.onrender.com/jobs/internal/refresh-cache \
+               -H "Content-Type: application/json"
+               
+        # In a real app, you would add an Authorization header here with a secret token
+        # to ensure only this Action can trigger the refresh.
